@@ -1,0 +1,67 @@
+{
+  "n": 5,
+
+  "groups": {
+    "first": {
+      "operation": "+",
+      "result": 3
+    },
+    "second": {
+      "operation": "*",
+      "result": 9
+    },
+    "third": {
+      "operation": "+",
+      "result": 6
+    },
+    "fourth": {
+      "operation": "none",
+      "result": 2
+    }
+  },
+
+  "squares": [
+    [
+      {
+        "number": 1,
+        "mathGroupId": "first"
+      },
+      {
+        "number": 2,
+        "mathGroupId": "third"
+      },
+      {
+        "number": 3,
+        "mathGroupId": "third"
+      }
+    ],
+    [
+      {
+        "number": 2,
+        "mathGroupId": "first"
+      },
+      {
+        "number": 3,
+        "mathGroupId": "second"
+      },
+      {
+        "number": 1,
+        "mathGroupId": "third"
+      }
+    ],
+    [
+      {
+        "number": 3,
+        "mathGroupId": "second"
+      },
+      {
+        "number": 1,
+        "mathGroupId": "second"
+      },
+      {
+        "number": 2,
+        "mathGroupId": "fourth"
+      }
+    ]
+  ]
+}
