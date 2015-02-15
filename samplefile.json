@@ -20,47 +20,47 @@
     }
   },
 
-  "squares": [
+  "cells": [
     [
       {
         "number": 1,
-        "mathGroupId": "first"
+        "group": "first"
       },
       {
         "number": 2,
-        "mathGroupId": "third"
+        "group": "third"
       },
       {
         "number": 3,
-        "mathGroupId": "third"
+        "group": "third"
       }
     ],
     [
       {
         "number": 2,
-        "mathGroupId": "first"
+        "group": "first"
       },
       {
         "number": 3,
-        "mathGroupId": "second"
+        "group": "second"
       },
       {
         "number": 1,
-        "mathGroupId": "third"
+        "group": "third"
       }
     ],
     [
       {
         "number": 3,
-        "mathGroupId": "second"
+        "group": "second"
       },
       {
         "number": 1,
-        "mathGroupId": "second"
+        "group": "second"
       },
       {
         "number": 2,
-        "mathGroupId": "fourth"
+        "group": "fourth"
       }
     ]
   ]
