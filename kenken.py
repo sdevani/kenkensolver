@@ -11,7 +11,7 @@ class Cell(Base):
         self.y = y
         self.groups = set()
         self.number = None
-        self.notes = range(1, state.n + 1)
+        self.notes = set(range(1, state.n + 1))
         self.state = state
 
     def as_dict(self):
@@ -24,6 +24,7 @@ class Cell(Base):
         ret = vars(self)
         del ret['groups']
         del ret['state']
+        ret['notes'] = list(ret['notes'])
         ret.update(group=str(hash(group)) if group else None)
         return ret
 
@@ -58,7 +59,7 @@ class Mul(Operation):
 
 class Group(Base):
     def reduce(self):
-        pass
+        return []
 
 class MathGroup(Group):
     def __init__(self, operation, result, cells, natural, state):
@@ -76,18 +77,61 @@ class MathGroup(Group):
         return dict(operation=self.operation.op.__name__, result=self.result)
 
     def reduce(self):
+        if not self.active:
+            return []
+
         if len(self.cells) == 1:
             cell = self.cells.pop()
             assert cell.number is None
             assert self.result in cell.notes, '%s, %s' % (self.result, cell.notes)
             cell.number = self.result
             self.active = False
+            return [cell]
+
+        return []
+
+class LockedSet(Group):
+    def __init__(self, state, cells):
+        self.n = state.n
+        self.cells = set(cells)
+        self.state = state
+        self.active = True
+
+        for cell in cells:
+            cell.groups.add(self)
+
+    def reduce(self):
+        if not self.active:
+            return []
+
+        taken = []
+        result = []
+
+        for cell in self.cells:
+            if cell.number:
+                taken.append(cell.number)
+
+        for cell in self.cells:
+            intersection = cell.notes.intersection(taken)
+            if intersection:
+                result.append(cell)
+                cell.notes = cell.notes.difference(intersection)
+
+        return result
+
 
 class State(Base):
     def __init__(self, n):
         self.n = n
         self.cells = [[Cell(i, j, self) for j in range(n)] for i in range(n)]
         self.groups = set()
+        for cell_col in self.cells:
+            self.groups.add(LockedSet(self, cell_col[:]))
+
+        for i in range(n):
+            cells = [self[j][i] for j in range(n)]
+            self.groups.add(LockedSet(self, cells))
+
 
     def __getitem__(self, x):
         return self.cells[x]
@@ -96,7 +140,12 @@ class State(Base):
         self.groups.add(group)
 
     def as_dict(self):
-        return dict(n=self.n, groups={str(hash(group)): group.as_dict() for group in self.groups},
+        return dict(
+            n=self.n,
+            groups={
+                str(hash(group)): group.as_dict() for group in
+                    filter(lambda x: type(x) is MathGroup and x.natural, self.groups)
+            },
             cells=[[cell.as_dict() for cell in c1] for c1 in self.cells])
 
     def reduce(self):
@@ -104,7 +153,9 @@ class State(Base):
         stack += list(self.groups)
         while stack:
             group = stack.pop()
-            group.reduce()
+            result = group.reduce()
+            for cell in result:
+                stack.extend(list(cell.groups))
 
 def build_3_state():
     state = State(3)
