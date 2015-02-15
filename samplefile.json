@@ -1,0 +1,68 @@
+{
+  "n": 5,
+
+  "groups": {
+    "first": {
+      "operation": "+",
+      "result": 3
+    },
+    "second": {
+      "operation": "*",
+      "result": 9
+    },
+    "third": {
+      "operation": "+",
+      "result": 6
+    },
+    "fourth": {
+      "operation": "none",
+      "result": 2
+    }
+  },
+
+  "cells": [
+    [
+      {
+        "number": 1,
+        "group": "first",
+        "notes": [1,3]
+      },
+      {
+        "number": 2,
+        "group": "third"
+      },
+      {
+        "number": 3,
+        "group": "third"
+      }
+    ],
+    [
+      {
+        "number": 2,
+        "group": "first"
+      },
+      {
+        "number": 3,
+        "group": "second"
+      },
+      {
+        "number": 1,
+        "group": "third"
+      }
+    ],
+    [
+      {
+        "number": 3,
+        "group": "second"
+      },
+      {
+        "number": 1,
+        "group": "second"
+      },
+      {
+        "number": 2,
+        "group": "fourth"
+      }
+    ]
+  ]
+}
