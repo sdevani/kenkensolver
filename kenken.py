@@ -223,7 +223,6 @@ class LockedSet(Group):
 
         return retval
 
-
 class State(Base):
     def __init__(self, n):
         self.n = n
