@@ -1,9 +1,22 @@
+body {
+	transform: scale(0.5, 0.5);
+	transform-origin: (50%, 50%);
+}
+
 table, th, td {
    border: 1px solid black;
    border-collapse: collapse;
 }
 
 td {
-  width: 80px;
-  height: 80px;
+  width: 180px;
+  height: 100px;
+}
+
+.grouptext {
+	font-weight: bold;
+}
+
+.cellnum {
+	font-size: 300%;
 }

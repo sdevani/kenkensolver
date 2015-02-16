@@ -8,14 +8,23 @@ var colorGrids = function(groups) {
 };
 
 var groupLabel = function(group) {
+  dict = {
+    'add': '+',
+    'sub': '-',
+    'div': '%',
+    'mul': 'x'
+  };
   if (!group.labelled) {
     group.labelled = true;
-    return group.operation + " " + group.result;
+    return dict[group.operation] + " " + group.result;
   }
   return ".";
 };
 
 var notesLabel = function(cell) {
+  if (cell.notes.length == 1 ) {
+    return "";
+  }
   if (cell.notes) {
     return cell.notes.join(", ");
   } else {
@@ -26,9 +35,9 @@ var notesLabel = function(cell) {
 var constructCell = function(cell, groups) {
   var cellText = $('<div>');
   var groupText = groupLabel(groups[cell.group]);
-  cellText.append($("<p>").text(groupText));
+  cellText.append($("<p>").text(groupText).addClass('grouptext'));
   cellText.append("<br>");
-  cellText.append($("<h3>").text(cell.number));
+  cellText.append($("<h3>").text(cell.number).addClass('cellnum'));
   var notesText = notesLabel(cell);
   cellText.append($("<p>").text(notesText));
   var cellElem = $('<td>').append(cellText);
