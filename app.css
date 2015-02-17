@@ -15,8 +15,10 @@ td {
 
 .grouptext {
 	font-weight: bold;
+	font-size: 200%;
 }
 
 .cellnum {
 	font-size: 300%;
+	color: #50a050;
 }

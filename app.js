@@ -69,7 +69,7 @@ var constructGrid = function(data) {
 
 var randomColor = function() {
   var n1 = Math.floor(Math.random() * 75) + 180;
-  var n2 = Math.floor(Math.random() * 75) + 180;
+  var n2 = Math.floor(Math.random() * 75) + 150;
   var n3 = Math.floor(Math.random() * 75) + 180;
 
   return "rgb(" + n1 + "," + n2 + "," + n3 + ")";

@@ -283,17 +283,12 @@ class State(Base):
 
     def apply_seed(self):
         retval = []
-        for cell in sum(self.cells, []):
-            assert type(cell.notes) is set
-        first_unsolved = next(cell for cell in sum(self.cells, []) if not cell.number)
+        first_unsolved = min([cell for cell in sum(self.cells, []) if not cell.number], key=lambda cell: len(cell.notes))
         print first_unsolved.number, first_unsolved.notes, first_unsolved
-        assert type(first_unsolved) is Cell
-        assert type(first_unsolved.notes) is set
         notes = list(first_unsolved.notes)
         num_to_assign = random.choice(notes)
         assert len(first_unsolved.notes) > 1
         first_unsolved.set_notes(set([num_to_assign]), retval)
-        assert type(first_unsolved.notes) is set
         return retval
 
     def add_group(self, group):
@@ -440,6 +435,29 @@ def build_9_state():
         '''
         )
 
+def build_other_9_state():
+    return build_from_string_2(
+        9,
+        '''
+        AABBCCCDE
+        FFFGHIIIE
+        JJGGHKKLE
+        JMMNNNLLO
+        PQQQRRRRO
+        PSSTTUVWX
+        PSYYZUVWX
+        abbbZccdd
+        abeeffcdd
+        ''',
+        '''
+        A-5 B-5 Cx40 D+6 E+13
+        F+24 G+13 H-6 I+15
+        Jx30 K+11 Lx15 M-8 Nx224 O+10
+        S+8 T+13 U-8 V+11 W-1 X-2 Y-7 Z-4
+        a%4 bx1260 c+13 dx567 e-3 f-1
+        '''
+    )
+
 def write_to_file(d, fname='samplefile.json'):
     f = open(fname, 'w')
     f.write(json.dumps(d))
@@ -480,11 +498,12 @@ def hax_branch_solver(builder):
 
     d = state.as_dict()
     print d
+    print '\n'.join(map(lambda row: ' '.join(map(lambda cell: str(cell.number), row)), state.cells))
     write_to_file(d)
 
 
 def do():
-    hax_branch_solver(build_7_state)
+    hax_branch_solver(build_other_9_state)
     return
 
     state = build_7_state()
