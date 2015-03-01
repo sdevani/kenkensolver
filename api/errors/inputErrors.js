@@ -1,0 +1,3 @@
+// Kenken.InputError = function(message) {
+  
+// }

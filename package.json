@@ -1,0 +1,25 @@
+{
+  "name": "kenkensolver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sdevani/kenkensolver.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sdevani/kenkensolver/issues"
+  },
+  "homepage": "https://github.com/sdevani/kenkensolver",
+  "dependencies": {
+    "gulp": "^3.8.11",
+    "gulp-jasmine": "^2.0.0",
+    "jasmine": "^2.2.1",
+    "jsonfile": "^2.0.0"
+  }
+}
